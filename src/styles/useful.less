@@ -1,4 +1,4 @@
-#adapt(@pcSize, @mobSize, @dependWidth: 1320) {
+#adapt(@pcSize, @mobSize, @dependWidth: 1440) {
 	@sizeDiff: @pcSize - @mobSize;
 
 	@value: calc(@mobSize * 1px + (@pcSize - @mobSize) * ((100vw - 320px) / (@dependWidth - 320)));

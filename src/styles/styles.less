@@ -1,12 +1,18 @@
 @import url('./nullstyle');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 @import url('./useful.less');
+
+body {
+	font-family: 'Inter', sans-serif;
+}
 
 .wrapper {
 	width: 100%;
 	min-height: 100vh;
 	overflow: hidden;
 
-	background-color: gray;
-	color: black;
-
+	background-color: #25252d;
 }
+
+@import url('../components/header/header.less');
+@import url('../components/convert/convert.less');
