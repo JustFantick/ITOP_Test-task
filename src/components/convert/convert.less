@@ -1,0 +1,137 @@
+.convert {
+	max-width: 1000px;
+
+	&__body {
+		max-width: 1000px;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		gap: #adapt(20, 15)[@value];
+	}
+
+	&__arrows img {
+		width: #adapt(70, 40)[@value];
+		height: #adapt(70, 40)[@value];
+	}
+}
+
+.convert-section {
+	cursor: pointer;
+	border-radius: 30px;
+	overflow: hidden;
+	background-color: #282b34;
+
+	color: #eff1db;
+
+	&__selected {
+		transition: all 0.5s ease-in-out;
+		padding: #adapt(35, 25)[@value] #adapt(40, 25)[@value];
+		border-bottom: 2px solid transparent;
+	}
+
+	&__extra-info {
+		font-weight: 700;
+		font-size: #adapt(20, 14)[@value];
+		line-height: 1.2;
+
+		margin-bottom: #adapt(20, 10)[@value];
+	}
+
+	&__input {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: #adapt(15, 5)[@value];
+
+		span,
+		input {
+			font-weight: 700;
+			font-size: #adapt(48, 28)[@value];
+			line-height: 1.2;
+			color: #eff1db;
+		}
+
+		input {
+			width: #adapt(250, 150)[@value];
+			flex: 1 1 auto;
+			background-color: transparent;
+
+			&::-webkit-inner-spin-button,
+			&::-webkit-outer-spin-button {
+				-webkit-appearance: none;
+				margin: 0;
+			}
+		}
+
+		img {
+			transition: all 0.5s ease-in-out;
+			width: 60px;
+			height: 35px;
+		}
+	}
+
+	&__select-options {
+		transition: all 0.5s ease-in-out;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+
+		visibility: hidden;
+		opacity: 0;
+	}
+
+	&__option {
+		cursor: pointer;
+		transition: all 0.5s ease-in-out;
+		width: 100%;
+		text-align: center;
+		font-weight: 700;
+		line-height: 1.21;
+		font-size: 0;
+
+		&.selected {
+			color: #1d212a;
+			background-color: #1ab865;
+		}
+	}
+
+	&.active {
+		.convert-section__selected {
+			border-bottom: 2px solid #eff1db;
+		}
+
+		.convert-section__select-options {
+			height: auto;
+			visibility: visible;
+			opacity: 1;
+		}
+
+		.convert-section__option {
+			font-size: #adapt(32, 18)[@value];
+			padding: #adapt(20, 15)[@value];
+		}
+
+		.convert-section__input img {
+			transform: rotate(-180deg);
+		}
+	}
+}
+
+@media (max-width: 1050px) {
+	.convert__body {
+		flex-direction: column;
+	}
+
+	.convert__arrows {
+		transform: rotate(90deg);
+	}
+
+	.convert-section__input input {}
+
+	// @media (max-width: 600px) {
+	// 	.convert-section__input {
+	// 		max-width: 290px;
+	// 	}
+	// }
+}
