@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ConvertSection from '../convert-section/convert-section.jsx';
 
-import { roundingDegree } from '../App.jsx';
+import { convertTo } from '../App.jsx';
 
 export default function Convert(props) {
 	//10 is default value of first 'ConvertSection', second calculates automatically
@@ -18,12 +18,12 @@ export default function Convert(props) {
 
 	function updateDescriptionText() {
 		let firstStr = currenciesInfo[chosenCurrencies[0]].fullName + ', ' + currenciesInfo[chosenCurrencies[0]].symbol + '1 = ';
-		let firstValue = (1 * props.rates[chosenCurrencies[1]] / props.rates[chosenCurrencies[0]]).toFixed(roundingDegree);
+		let firstValue = convertTo(1, props.rates[chosenCurrencies[1]], props.rates[chosenCurrencies[0]]);
 		firstStr += currenciesInfo[chosenCurrencies[1]].symbol + firstValue;
 
 		let secondStr =
 			currenciesInfo[chosenCurrencies[1]].fullName + ', ' + currenciesInfo[chosenCurrencies[1]].symbol + '1 = ';
-		let secondValue = (1 * props.rates[chosenCurrencies[0]] / props.rates[chosenCurrencies[1]]).toFixed(roundingDegree);
+		let secondValue = convertTo(1, props.rates[chosenCurrencies[0]], props.rates[chosenCurrencies[1]]);
 		secondStr += currenciesInfo[chosenCurrencies[0]].symbol + secondValue;
 
 		setDescriptionText([firstStr, secondStr]);
@@ -37,11 +37,13 @@ export default function Convert(props) {
 		setChosenAmounts(
 			prev => [
 				prev[0],
-				(chosenAmounts[0] * props.rates[chosenCurrencies[1]] / props.rates[chosenCurrencies[0]]).toFixed(roundingDegree)
+				convertTo(chosenAmounts[0], props.rates[chosenCurrencies[1]], props.rates[chosenCurrencies[0]])
 			]
 		);
 		updateDescriptionText();
 	}, [props.rates]);
+
+
 
 	return (
 		<main className='convert'>

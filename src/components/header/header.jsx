@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { roundingDegree } from '../App.jsx';
+import { convertTo } from '../App.jsx';
 
 export default function Header(props) {
-	//main currencies that should be interpret into UAH
+	//main currencies that should be converted into UAH
 	const [usdToUan, setUsdToUan] = useState(0);
 	const [eurToUan, setEurToUan] = useState(0);
 
 	useEffect(() => {
-		setUsdToUan((1 * props.rates.UAH / props.rates.USD).toFixed(roundingDegree));
-		setEurToUan((1 * props.rates.UAH / props.rates.EUR).toFixed(roundingDegree));
+		setUsdToUan(convertTo(1, props.rates.UAH, props.rates.USD));
+		setEurToUan(convertTo(1, props.rates.UAH, props.rates.EUR));
 	}, [props.rates]);
 
 	return (

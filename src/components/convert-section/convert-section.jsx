@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { roundingDegree } from '../App.jsx';
+import { convertTo } from '../App.jsx';
 
 export default function ConvertSection(props) {
 	function onOptionClickHandler(e) {
@@ -11,39 +11,44 @@ export default function ConvertSection(props) {
 		e.target.classList.add('selected');
 
 		//actualize 'chosenCurrencies' in parent`s state
-		let firstCurrencyValue = props.rates[props.chosenCurrencies[0]];
-		let secondCurrencyValue = props.rates[props.chosenCurrencies[1]];
 		let clickedCurrency = e.target.getAttribute('data-currency');
-
 		if (props.index === 0) {
 			props.setChosenCurrencies(
 				prev => [clickedCurrency, prev[1]]
 			)
 			props.setChosenAmounts(
-				prev => [prev[0], (props.chosenAmount * secondCurrencyValue / props.rates[clickedCurrency]).toFixed(roundingDegree)]
+				prev => [
+					prev[0],
+					convertTo(props.chosenAmount, props.rates[props.chosenCurrencies[1]], props.rates[clickedCurrency])
+				]
 			);
 		} else if (props.index === 1) {
 			props.setChosenCurrencies(
 				prev => [prev[0], clickedCurrency]
 			)
 			props.setChosenAmounts(
-				prev => [(props.chosenAmount * firstCurrencyValue / props.rates[clickedCurrency]).toFixed(roundingDegree), prev[1]]
+				prev => [
+					convertTo(props.chosenAmount, props.rates[props.chosenCurrencies[0]], props.rates[clickedCurrency]),
+					prev[1]]
 			);
 		}
 	}
 
 	function onInputChangeHandler(target) {
-		let firstCurrencyValue = props.rates[props.chosenCurrencies[0]];
-		let secondCurrencyValue = props.rates[props.chosenCurrencies[1]];
-
 		if (target.value !== '') {
 			if (props.index === 0) {
 				props.setChosenAmounts(
-					[parseFloat(target.value), (target.value * secondCurrencyValue / firstCurrencyValue).toFixed(4)]
+					[
+						parseFloat(target.value),
+						convertTo(target.value, props.rates[props.chosenCurrencies[1]], props.rates[props.chosenCurrencies[0]])
+					]
 				);
 			} else if (props.index === 1) {
 				props.setChosenAmounts(
-					[(target.value * firstCurrencyValue / secondCurrencyValue).toFixed(4), parseFloat(target.value)]
+					[
+						convertTo(target.value, props.rates[props.chosenCurrencies[0]], props.rates[props.chosenCurrencies[1]]),
+						parseFloat(target.value)
+					]
 				);
 			}
 			target.value = target.value.replace(/^0+/, '');
